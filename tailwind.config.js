@@ -8,7 +8,9 @@ module.exports = {
   "darkMode": "class",
   theme: {
     extend: {
-
+      backgroundColor: {
+        selected: 'var(--tw-bg-selected)',
+      },
     },
   },
   plugins: [],
