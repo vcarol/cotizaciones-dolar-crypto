@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,6 +15,7 @@ body {
   background: #f0eff5;
   color: #27282f;
   height: 100vh;
+  font-family: 'Lato', sans-serif;
 }
 
 .selected{
