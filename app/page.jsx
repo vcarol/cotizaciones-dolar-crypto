@@ -8,6 +8,7 @@ import buenbitImg from '../public/criptos/buenbit.png'
 import bybitImg from '../public/criptos/bybit.jpg'
 import tiendaImg from '../public/criptos/tiendacrypto.png'
 import bitsoImg from '../public/criptos/bitso-logo.png'
+import fiwindImg from '../public/criptos/fiwind.jpg'
 
 /* iconos selected crypto */
 import usdtIcon from '../public/criptos/tether.svg'
@@ -55,6 +56,7 @@ export default function Home() {
     bybit: bybitImg,
     tiendacrypto: tiendaImg,
     ripio: ripioImg,
+    fiwind: fiwindImg,
   }
 
   useEffect(() => {
@@ -106,22 +108,18 @@ export default function Home() {
     // función para obtener los datos de criptomonedas
     const fetchCryptoData = async () => {
       try {
-        const exchanges = ['belo', 'lemoncash', 'ripio', 'buenbit', 'letsbit', 'bitsoalpha', 'bybit', 'tiendacrypto', 'ripio']
+        const exchanges = ['belo', 'lemoncash', 'ripio', 'buenbit', 'letsbit', 'bitsoalpha', 'bybit', 'tiendacrypto', 'ripio', 'fiwind']
         const coin = selectedCrypto; // utiliza la criptomoneda seleccionada
         const fiat = 'ars'
         const volume = 0.1
         const exchangeLinks = {
           belo: {
-            link: 'https://belo.cash/',
+            link: 'https://belo.app/',
             name: 'Belo',
           },
           lemoncash: {
             link: 'https://www.lemon.me/',
             name: 'Lemon Cash',
-          },
-          ripio: {
-            link: 'https://ripio.com/',
-            name: 'Ripio',
           },
           letsbit: {
             link: 'https://www.letsbit.io/',
@@ -146,6 +144,10 @@ export default function Home() {
           ripio: {
             link: 'https://ripio.com/',
             name: 'Ripio',
+          },
+          fiwind: {
+            link: 'https://fiwind.io/',
+            name: 'fiwind',
           },
         };
         
