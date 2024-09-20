@@ -1,36 +1,35 @@
-'use client'
+"use client";
 /* imagenes exchanges */
-import beloImg from '../public/criptos/belo.jpg'
-import lemonImg from '../public/criptos/lemon.jpg'
-import ripioImg from '../public/criptos/ripio.jpg'
-import letsImg from '../public/criptos/lestbit.jpg'
-import buenbitImg from '../public/criptos/buenbit.png'
-import bybitImg from '../public/criptos/bybit.jpg'
-import tiendaImg from '../public/criptos/tiendacrypto.png'
-import bitsoImg from '../public/criptos/bitso-logo.png'
-import fiwindImg from '../public/criptos/fiwind.jpg'
+import beloImg from "../public/criptos/belo.jpg";
+import lemonImg from "../public/criptos/lemon.jpg";
+import ripioImg from "../public/criptos/ripio.jpg";
+import letsImg from "../public/criptos/lestbit.jpg";
+import buenbitImg from "../public/criptos/buenbit.png";
+import bybitImg from "../public/criptos/bybit.jpg";
+import tiendaImg from "../public/criptos/tiendacrypto.png";
+import bitsoImg from "../public/criptos/bitso-logo.png";
+import fiwindImg from "../public/criptos/fiwind.jpg";
 
 /* iconos selected crypto */
-import usdtIcon from '../public/criptos/tether.svg'
-import usdcIcon from '../public/criptos/usdc.svg'
-import ethIcon from '../public/criptos/ethereum.svg'
-import btcIcon from '../public/criptos/bitcoin.svg'
-import daiIcon from '../public/criptos/dai.svg'
+import usdtIcon from "../public/criptos/tether.svg";
+import usdcIcon from "../public/criptos/usdc.svg";
+import ethIcon from "../public/criptos/ethereum.svg";
+import btcIcon from "../public/criptos/bitcoin.svg";
+import daiIcon from "../public/criptos/dai.svg";
 
-import { useState, useEffect } from 'react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import { FaMoon, FaSun } from "react-icons/fa";
 
-import { fetchDolarData } from '../api/dolarApi';
+import { fetchDolarData } from "../api/dolarApi";
 import DolarCard from "@/components/DolarCard";
 
-import { fetchCryptoExchangeData } from '../api/cryptoApi';
-import CryptoCard from '@/components/CryptoCard';
-import Image from 'next/image'
-import Link from 'next/link'
+import { fetchCryptoExchangeData } from "../api/cryptoApi";
+import CryptoCard from "@/components/CryptoCard";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
-
-  const [darkMode, setDarkMode] = useState('light');
+  const [darkMode, setDarkMode] = useState("dark");
 
   const [dolarOficialData, setDolarOficialData] = useState(null);
   const [dolarBlueData, setDolarBlueData] = useState(null);
@@ -38,7 +37,7 @@ export default function Home() {
   const [dolarCclData, setDolarCclData] = useState(null);
 
   const [cryptoData, setCryptoData] = useState(null);
-  const [selectedCrypto, setSelectedCrypto] = useState('usdt'); // estado inicial para la criptomoneda seleccionada
+  const [selectedCrypto, setSelectedCrypto] = useState("usdt"); // estado inicial para la criptomoneda seleccionada
 
   const [lastDolarUpdate, setLastDolarUpdate] = useState(null);
   const [lastCryptoUpdate, setLastCryptoUpdate] = useState(null);
@@ -57,7 +56,7 @@ export default function Home() {
     tiendacrypto: tiendaImg,
     ripio: ripioImg,
     fiwind: fiwindImg,
-  }
+  };
 
   useEffect(() => {
     // Dolar
@@ -76,12 +75,12 @@ export default function Home() {
       //     setDolarCclData(cclData.casa)
       //     setLoading(false)
       //     setLastDolarUpdate(new Date())
-          
+
       //   } else {
       //     console.error('No se encontraron datos del dolar.')
       //     setLoading(false)
       //   }
-        
+
       // } catch (error) {
       //   console.error('Error fetching dollar data:', error)
       //   setLoading(false)
@@ -89,160 +88,186 @@ export default function Home() {
 
       // llamada anterior, con otra api
       try {
-        const oficialData = await fetchDolarData('oficial')
-        const blueData = await fetchDolarData('blue')
-        const cclData = await fetchDolarData('contadoconliqui')
-        const bolsaData = await fetchDolarData('bolsa')
-        setDolarOficialData(oficialData)
-        setDolarBlueData(blueData)
-        setDolarCclData(cclData)
-        setDolarBolsaData(bolsaData)
+        const oficialData = await fetchDolarData("oficial");
+        const blueData = await fetchDolarData("blue");
+        const cclData = await fetchDolarData("contadoconliqui");
+        const bolsaData = await fetchDolarData("bolsa");
+        setDolarOficialData(oficialData);
+        setDolarBlueData(blueData);
+        setDolarCclData(cclData);
+        setDolarBolsaData(bolsaData);
         setLoading(false); // cambia el estado a falso cuando los datos se han cargado
-        setLastDolarUpdate(new Date())
+        setLastDolarUpdate(new Date());
       } catch (error) {
-        console.error('Error fetching dollar data:', error)
+        console.error("Error fetching dollar data:", error);
         setLoading(false); // es para asegurar que se desactive el estado en caso de error
       }
-    }
+    };
 
     // función para obtener los datos de criptomonedas
     const fetchCryptoData = async () => {
       try {
-        const exchanges = ['belo', 'lemoncash', 'ripio', 'buenbit', 'letsbit', 'bitsoalpha', 'bybit', 'tiendacrypto', 'ripio', 'fiwind']
+        const exchanges = [
+          "belo",
+          "lemoncash",
+          "ripio",
+          "buenbit",
+          "letsbit",
+          "bitsoalpha",
+          "bybit",
+          "tiendacrypto",
+          "ripio",
+          "fiwind",
+        ];
         const coin = selectedCrypto; // utiliza la criptomoneda seleccionada
-        const fiat = 'ars'
-        const volume = 0.1
+        const fiat = "ars";
+        const volume = 0.1;
         const exchangeLinks = {
           belo: {
-            link: 'https://belo.app/',
-            name: 'Belo',
+            link: "https://belo.app/",
+            name: "Belo",
           },
           lemoncash: {
-            link: 'https://www.lemon.me/',
-            name: 'Lemon Cash',
+            link: "https://www.lemon.me/",
+            name: "Lemon Cash",
           },
           letsbit: {
-            link: 'https://www.letsbit.io/',
-            name: 'Let\'s Bit',
+            link: "https://www.letsbit.io/",
+            name: "Let's Bit",
           },
           buenbit: {
-            link: 'https://buenbit.com/',
-            name: 'Buenbit',
+            link: "https://buenbit.com/",
+            name: "Buenbit",
           },
           bitsoalpha: {
-            link: 'https://bitso.com/',
-            name: 'Bitso Alpha',
+            link: "https://bitso.com/",
+            name: "Bitso Alpha",
           },
           bybit: {
-            link: 'https://bybit.com/',
-            name: 'Bybit',
+            link: "https://bybit.com/",
+            name: "Bybit",
           },
           tiendacrypto: {
-            link: 'https://tiendacrypto.com/',
-            name: 'TiendaCrypto',
+            link: "https://tiendacrypto.com/",
+            name: "TiendaCrypto",
           },
           ripio: {
-            link: 'https://ripio.com/',
-            name: 'Ripio',
+            link: "https://ripio.com/",
+            name: "Ripio",
           },
           fiwind: {
-            link: 'https://fiwind.io/',
-            name: 'fiwind',
+            link: "https://fiwind.io/",
+            name: "fiwind",
           },
         };
-        
-        const cryptoData = {}
+
+        const cryptoData = {};
 
         for (const exchange of exchanges) {
-          const exchangeData = await fetchCryptoExchangeData(exchange, coin, fiat, volume)
+          const exchangeData = await fetchCryptoExchangeData(
+            exchange,
+            coin,
+            fiat,
+            volume
+          );
           exchangeData.img = exchangeImg[exchange]; // se asocia el enlace al intercambio
           exchangeData.link = exchangeLinks[exchange].link; // se asocia el enlace al intercambio
           exchangeData.name = exchangeLinks[exchange].name; // se asocia el enlace al intercambio
-          cryptoData[exchange] = exchangeData
-          
+          cryptoData[exchange] = exchangeData;
         }
-        
-        
+
         setCryptoData(cryptoData);
-        setLastCryptoUpdate(new Date())
+        setLastCryptoUpdate(new Date());
         setLoading(false); // cambia el estado a falso cuando los datos se han cargado
       } catch (error) {
-        console.error('Error fetching crypto data:', error);
+        console.error("Error fetching crypto data:", error);
         setLoading(false); // es para asegurar que se desactive el estado en caso de error
       }
     };
 
     // Realiza la primera llmada al montar el componente y se  programa llamadas periodicas
-    fetchData()
-    fetchCryptoData()
-    
+    fetchData();
+    fetchCryptoData();
 
-    const dolarInterval = setInterval(fetchData, 3 * 60 * 1000)
-    const cryptoInterval = setInterval(fetchCryptoData, 3 * 60 * 1000)
+    const dolarInterval = setInterval(fetchData, 3 * 60 * 1000);
+    const cryptoInterval = setInterval(fetchCryptoData, 3 * 60 * 1000);
 
-    // limpia los intervalos 
+    // limpia los intervalos
     return () => {
-      clearInterval(dolarInterval)
-      clearInterval(cryptoInterval)
-    }
-  }, [selectedCrypto])
-//****************************************************************** */
+      clearInterval(dolarInterval);
+      clearInterval(cryptoInterval);
+    };
+  }, [selectedCrypto]);
+  //****************************************************************** */
 
   // Función para manejar el cambio en el select
   const handleCrypto = (crypto) => {
-    setSelectedCrypto(crypto)
-  }
+    setSelectedCrypto(crypto);
+  };
   // con select / options
   // const handleCryptoChange = (e) => {
   //   setSelectedCrypto(e.target.value)
   // }
-//****************************************************************** */
-  // Dark Theme 
+  //****************************************************************** */
+  // Dark Theme
   useEffect(() => {
-    if(darkMode === 'dark'){
-      document.querySelector('html').classList.add('dark')
-    }else {
-      document.querySelector('html').classList.remove('dark')
+    if (darkMode === "dark") {
+      document.querySelector("html").classList.add("dark");
+    } else {
+      document.querySelector("html").classList.remove("dark");
     }
-  })
+  });
 
   // funcion para cambiar el modo oscuro/claro
   const toggleDarkMode = () => {
-    setDarkMode(prev => (prev === 'light' ? 'dark' : 'light'))
+    setDarkMode((prev) => (prev === "light" ? "dark" : "light"));
+  };
+  {
+    /* Fin Dark Theme */
   }
-  {/* Fin Dark Theme */}
-
 
   return (
-    <main className='dark:bg-[#23232a] dark:text-[#ddd] border-none '>
-      <div className='max-w-[1140px] mx-auto md:px-8 px-4 '>
-        <div className='flex flex-col'>
+    <main className="dark:bg-[#23232a] dark:text-[#ddd] border-none ">
+      <div className="max-w-[1140px] mx-auto md:px-8 px-4 ">
+        <div className="flex flex-col">
           {/* header */}
-          <div className='flex justify-between items-center w-full h-24'>
-            <div className='dar:text-white font-bold text-xl'>
-              Argen<span className='text-[#a063f5]' >Coin.</span> 
+          <div className="flex justify-between items-center w-full h-24">
+            <div className="dar:text-white font-bold text-xl">
+              Argen<span className="text-[#a063f5]">Coin.</span>
             </div>
-            <div className='flex items-center gap-6'>
-              <Link href='/faq' className='hidden font-bold text-sm hover:text-[#a063f5]'>Ayuda/FAQ</Link>
-              <button 
-                className='w-[34px] h-[34px] bg-[#a063f5] text-white rounded-full flex items-center justify-center'
+            <div className="flex items-center gap-6">
+              <Link
+                href="/faq"
+                className="hidden font-bold text-sm hover:text-[#a063f5]"
+              >
+                Ayuda/FAQ
+              </Link>
+              <button
+                className="w-[34px] h-[34px] bg-[#a063f5] text-white rounded-full flex items-center justify-center"
                 onClick={toggleDarkMode}
               >
-                {darkMode === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
+                {darkMode === "dark" ? (
+                  <FaSun size={18} />
+                ) : (
+                  <FaMoon size={18} />
+                )}
               </button>
             </div>
           </div>
 
           <div className="text-center my-8">
-            <h1 className='text-[28px] sm:text-3xl md:text-4xl font-semibold'>
-              Cotizaciones 💸 <br />al alcance de tu mano
+            <h1 className="text-[28px] sm:text-3xl md:text-4xl font-semibold">
+              Cotizaciones 💸 <br />
+              al alcance de tu mano
             </h1>
             <div className="w-full mt-4 mb-8 text-md md:text-lg leading-normal opacity-70 font-medium">
-              Sigue las cotizaciones en vivo de las criptomonedas más destacadas,<br className='hidden md:block' /> como Bitcoin, Ethereum y las stablecoins, además del dólar. 
+              Sigue las cotizaciones en vivo de las criptomonedas más
+              destacadas,
+              <br className="hidden md:block" /> como Bitcoin, Ethereum y las
+              stablecoins, además del dólar.
             </div>
           </div>
         </div>
-
 
         {loading ? (
           <div className="flex items-center justify-center">
@@ -267,60 +292,99 @@ export default function Home() {
           <section>
             {/* Dolar Section */}
             <div>
-              {dolarOficialData && dolarBlueData && dolarBolsaData && dolarCclData && (
-                <DolarCard oficialData={dolarOficialData} blueData={dolarBlueData} bolsaData={dolarBolsaData} cclData={dolarCclData} />
-              )}
+              {dolarOficialData &&
+                dolarBlueData &&
+                dolarBolsaData &&
+                dolarCclData && (
+                  <DolarCard
+                    oficialData={dolarOficialData}
+                    blueData={dolarBlueData}
+                    bolsaData={dolarBolsaData}
+                    cclData={dolarCclData}
+                  />
+                )}
             </div>
 
             {/* Crypto Section */}
 
             {/* select para seleccionar la criptomoneda */}
             <div>
-                
-
-              <div className='flex flex-col gap-y-4 justify-center items-center mt-12 pb-8'>
-                <label htmlFor="cryptoSelect" className="font-bold text-xl md:text-xl">
+              <div className="flex flex-col gap-y-4 justify-center items-center mt-12 pb-8">
+                <label
+                  htmlFor="cryptoSelect"
+                  className="font-bold text-xl md:text-xl"
+                >
                   Selecciona una criptomoneda:
                 </label>
-                <div className='flex flex-wrap justify-center mx-auto gap-2 font-bold text-base md:text-lg'>
-                  <div 
-                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${darkMode === 'dark' ? 'dark:bg-[#131316]' : 'bg-white '} ${selectedCrypto === 'usdt' ? 'selected' : '' }`}
-                    onClick={() => handleCrypto('usdt')}
-                    title='Tether'
+                <div className="flex flex-wrap justify-center mx-auto gap-2 font-bold text-base md:text-lg">
+                  <div
+                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${
+                      darkMode === "dark" ? "dark:bg-[#131316]" : "bg-white "
+                    } ${selectedCrypto === "usdt" ? "selected" : ""}`}
+                    onClick={() => handleCrypto("usdt")}
+                    title="Tether"
                   >
-                    <Image src={usdtIcon} alt=''  className='w-5 h-5 md:w-7 md:h-7' />
+                    <Image
+                      src={usdtIcon}
+                      alt=""
+                      className="w-5 h-5 md:w-7 md:h-7"
+                    />
                     USDT
                   </div>
-                  <div 
-                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${darkMode === 'dark' ? 'dark:bg-[#131316]' : 'bg-white '} ${selectedCrypto === 'usdc' ? 'selected' : '' }`}
-                    onClick={() => handleCrypto('usdc')}
-                    title='USD Coin'
+                  <div
+                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${
+                      darkMode === "dark" ? "dark:bg-[#131316]" : "bg-white "
+                    } ${selectedCrypto === "usdc" ? "selected" : ""}`}
+                    onClick={() => handleCrypto("usdc")}
+                    title="USD Coin"
                   >
-                    <Image src={usdcIcon} alt='' className='w-5 h-5 md:w-7 md:h-7' />
+                    <Image
+                      src={usdcIcon}
+                      alt=""
+                      className="w-5 h-5 md:w-7 md:h-7"
+                    />
                     USDC
                   </div>
-                  <div 
-                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${darkMode === 'dark' ? 'dark:bg-[#131316]' : 'bg-white '} ${selectedCrypto === 'dai' ? 'selected' : '' }`}
-                    onClick={() => handleCrypto('dai')}
-                    title='Dai'
+                  <div
+                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${
+                      darkMode === "dark" ? "dark:bg-[#131316]" : "bg-white "
+                    } ${selectedCrypto === "dai" ? "selected" : ""}`}
+                    onClick={() => handleCrypto("dai")}
+                    title="Dai"
                   >
-                    <Image src={daiIcon} alt='' className='w-5 h-5 md:w-7 md:h-7 ' />
+                    <Image
+                      src={daiIcon}
+                      alt=""
+                      className="w-5 h-5 md:w-7 md:h-7 "
+                    />
                     DAI
                   </div>
-                  <div 
-                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${darkMode === 'dark' ? 'dark:bg-[#131316]' : 'bg-white '} ${selectedCrypto === 'btc' ? 'selected' : '' }`}
-                    onClick={() => handleCrypto('btc')}
-                    title='Bitcoin'
+                  <div
+                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${
+                      darkMode === "dark" ? "dark:bg-[#131316]" : "bg-white "
+                    } ${selectedCrypto === "btc" ? "selected" : ""}`}
+                    onClick={() => handleCrypto("btc")}
+                    title="Bitcoin"
                   >
-                    <Image src={btcIcon} alt='' className='w-5 h-5 md:w-7 md:h-7 ' />
+                    <Image
+                      src={btcIcon}
+                      alt=""
+                      className="w-5 h-5 md:w-7 md:h-7 "
+                    />
                     BTC
                   </div>
-                  <div 
-                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${darkMode === 'dark' ? 'dark:bg-[#131316]' : 'bg-white '} ${selectedCrypto === 'eth' ? 'selected' : '' }`}
-                    onClick={() => handleCrypto('eth')}
-                    title='Ethereum'
+                  <div
+                    className={`flex items-center gap-1 py-2 pl-3 pr-4 rounded-md cursor-pointer ${
+                      darkMode === "dark" ? "dark:bg-[#131316]" : "bg-white "
+                    } ${selectedCrypto === "eth" ? "selected" : ""}`}
+                    onClick={() => handleCrypto("eth")}
+                    title="Ethereum"
                   >
-                    <Image src={ethIcon} alt='' className='w-5 h-5 md:w-7 md:h-7' />
+                    <Image
+                      src={ethIcon}
+                      alt=""
+                      className="w-5 h-5 md:w-7 md:h-7"
+                    />
                     ETH
                   </div>
                 </div>
@@ -340,40 +404,42 @@ export default function Home() {
               {/* Muestra los datos de criptomonedas usando el componente CryptoCard */}
               {cryptoData && <CryptoCard data={cryptoData} />}
             </div>
-
-            
           </section>
         )}
         {/* fecha y data */}
-        <div className='flex flex-wrap gap-12 justify-center md:justify-between items-center mt-16 pb-6 ' >
-          <div className='text-center sm:text-left'>
+        <div className="flex flex-wrap gap-12 justify-center items-center mt-16 pb-6 ">
+          <div className="text-center">
             <p className="text-xs text-gray-500 dark:text-gray-300">
-              Última actualización: {lastCryptoUpdate && lastCryptoUpdate.toLocaleString()}
+              Última actualización:{" "}
+              {lastCryptoUpdate && lastCryptoUpdate.toLocaleString()}
             </p>
             {/* <p className="text-xs text-gray-500 dark:text-gray-300">Se utilizaron APIs de <Link href='https://criptoya.com/' className='text-[#a063f5]'>CriptoYa</Link> y <Link href='https://dolarsi.com/' className='text-[#a063f5]'>DolarSi</Link></p> */}
-            <p className="text-xs text-gray-500 dark:text-gray-300">Todos los precios son pasados a $ARS.</p>
-            <p className="text-xs text-gray-500 dark:text-gray-300">Los valores son meramente informativos y <br /> se basan en la información provista por <br /> cada proveedor <Link href='https://criptoya.com/' className='text-[#a063f5]'>CriptoYa</Link> y <Link href='https://dolarapi.com/' className='text-[#a063f5]'>DolarAPI</Link>.</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300">
+              Todos los precios son pasados a $ARS.
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-300">
+              Los valores son meramente informativos y <br /> se basan en la
+              información provista por <br /> cada proveedor{" "}
+              <Link
+                href="https://criptoya.com/"
+                className="text-[#a063f5]"
+                target="_blank"
+              >
+                CriptoYa
+              </Link>{" "}
+              y{" "}
+              <Link
+                href="https://dolarapi.com/"
+                className="text-[#a063f5]"
+                target="_blank"
+              >
+                DolarAPI
+              </Link>
+              .
+            </p>
           </div>
-
-          <div>
-            <Link href='https://cafecito.app/caropv' passHref target='_blank' rel='noopener'>
-                <Image
-                  src='https://cdn.cafecito.app/imgs/buttons/button_3.png'
-                  srcSet='https://cdn.cafecito.app/imgs/buttons/button_3.png  1x, https://cdn.cafecito.app/imgs/buttons/button_3_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_3_3.75x.png 3.75x'
-                  alt='Invitame un café en cafecito.app'
-                  width={300}  
-                  height={100} 
-                  className='md:w-full h-auto w-[150px] '
-                />
-              
-            </Link>
-            
-          </div>
-
         </div>
-
-
       </div>
     </main>
-  )
+  );
 }
